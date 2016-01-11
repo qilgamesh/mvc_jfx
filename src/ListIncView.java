@@ -1,37 +1,33 @@
-package sample;
-
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.Income;
+import model.Model;
+import view.ListView;
 
-public class Main extends Application {
+import java.util.Collection;
 
-	private TableView table = new TableView();
+/**
+ * @author Andrey Semenyuk
+ */
+public class ListIncView extends ListView<Income> {
+	private final TableView table;
 	private final ObservableList<Income> data =
 			FXCollections.observableArrayList(
-					new Income(0, "Начальный остаток", 1)
+					new Income(0, "Начальный остаток", 1f)
 			);
 	final HBox hb = new HBox();
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage stage) {
-		Scene scene = new Scene(new Group());
+	public ListIncView(Stage stage) {
+		table = new TableView();
 		stage.setTitle("Доход");
 		stage.setWidth(450);
 		stage.setHeight(550);
@@ -39,7 +35,7 @@ public class Main extends Application {
 		final Label label = new Label("Список доходов");
 		label.setFont(new Font("Arial", 20));
 
-		table.setEditable(true);
+		this.table.setEditable(true);
 
 		final TableColumn uidCol = new TableColumn("УИД");
 		uidCol.setMinWidth(10);
@@ -56,8 +52,8 @@ public class Main extends Application {
 		sumCol.setCellValueFactory(
 				new PropertyValueFactory<Income, String>("sum"));
 
-		table.setItems(data);
-		table.getColumns().addAll(uidCol, nameCol, sumCol);
+		this.table.setItems(data);
+		this.table.getColumns().addAll(uidCol, nameCol, sumCol);
 
 		final TextField addUid = new TextField();
 		addUid.setPromptText("0");
@@ -76,7 +72,7 @@ public class Main extends Application {
 				data.add(new Income(
 						Integer.valueOf(addUid.getText()),
 						addName.getText(),
-						Float.valueOf(addSum.toString())));
+						Float.valueOf(addSum.getText())));
 				addUid.clear();
 				addName.clear();
 				addSum.clear();
@@ -89,11 +85,14 @@ public class Main extends Application {
 		final VBox vbox = new VBox();
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(label, table, hb);
+		vbox.getChildren().addAll(label, this.table, hb);
 
-		((Group) scene.getRoot()).getChildren().addAll(vbox);
+		//((Group) scene.getRoot()).getChildren().addAll(vbox);
 
-		stage.setScene(scene);
-		stage.show();
+	}
+
+	@Override
+	public void modelChanged(Model<Collection<Model<Income>>> model) {
+
 	}
 }

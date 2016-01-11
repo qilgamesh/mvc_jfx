@@ -1,18 +1,18 @@
-package model;
-
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.Serializable;
+
 /**
  * @author Andrey Semenyuk
  */
-public class Income {
+public class Income implements Serializable {
 	private final SimpleIntegerProperty uid;
 	private final SimpleStringProperty name;
 	private final SimpleFloatProperty sum;
 
-	public Income(int uid, String name, float sum) {
+	public Income(Integer uid, String name, Float sum) {
 		this.uid = new SimpleIntegerProperty(uid);
 		this.name = new SimpleStringProperty(name);
 		this.sum = new SimpleFloatProperty(sum);
