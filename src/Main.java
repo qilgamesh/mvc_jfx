@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -8,19 +7,19 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 	private TestPane root;
-	@Override
-	public void start(Stage stage) {
-		root = new TestPane();
 
+	@Override
+	public void start(Stage primaryStage) {
+		root = new TestPane();
 		Scene scene = new Scene(root);
 
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Test JavaFX");
+		primaryStage.show();
+	}
 
-		stage.setScene(scene);
-		stage.show();
+	public static void main(String[] args) {
+		launch(args);
 	}
 }

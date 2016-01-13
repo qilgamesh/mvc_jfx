@@ -1,43 +1,45 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 
 /**
  * @author Andrey Semenyuk
  */
-public class TestPane extends StackPane {
-
-	TestManager testManager;
+public class TestPane extends BorderPane {
 
 	public TestPane() {
-		testManager = new TestManager();
+
+		setPrefHeight(600);
+		setPrefWidth(900);
+
+		// top
+
+		final Button btnFirst = new Button("button");
+		btnFirst.setFont(Font.font("Monospace"));
+		final ToolBar toolBar = new ToolBar(btnFirst);
+		setTop(toolBar);
+
+		// bottom
+
+		final HBox hBox = new HBox();
+		hBox.setPrefHeight(30);
+		setBottom(hBox);
+
+		// left
+
+		final TreeView treeView = new TreeView();
+		setLeft(treeView);
+
+		// right
+
+		// center
+
+		final GridPane cGridPane = new GridPane();
+		setCenter(cGridPane);
 
 	}
-
-	private HBox createToolBar(){
-		HBox toolbar=new HBox();
-		toolbar.setAlignment(Pos.CENTER);
-		toolbar.setPadding(new Insets(10.0));
-		Button btItem1 = createButtonItem("mSave", "Save Session", t->testManager.saveSession());
-		Button btItem2 = createButtonItem("mRestore", "Restore Session", t->testManager.restoreSession());
-		Button btItem3 = createButtonItem("mInfo", "About the Game", t->testManager.about());
-		toolbar.getChildren().setAll(btItem1, btItem2, btItem3);
-		Button btItem6 = createButtonItem("mQuit", "Quit Game", t->testManager.quit());
-		toolbar.getChildren().add(btItem6);
-		return toolbar;
-	}
-	private Button createButtonItem(String symbol, String text, EventHandler<ActionEvent> t){
-		Button g = new Button();
-		g.setPrefSize(40, 40);
-		g.setId(symbol);
-		g.setOnAction(t);
-		g.setTooltip(new Tooltip(text));
-		return g;
-	}
-
 }
