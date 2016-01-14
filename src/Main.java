@@ -7,13 +7,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-	private TestPane root;
-
 	@Override
 	public void start(Stage primaryStage) {
-		root = new TestPane();
-		Scene scene = new Scene(root);
-
+		Scene scene = new Scene(new TestPane());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Test JavaFX");
 		primaryStage.show();
