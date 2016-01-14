@@ -1,6 +1,6 @@
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.TreeView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -19,20 +19,22 @@ public class TestPane extends BorderPane {
 		// top
 
 		final Button btnFirst = new Button("button");
-		btnFirst.setFont(Font.font("Monospace"));
+		btnFirst.setFont(Font.font("Arial", 14));
 		final ToolBar toolBar = new ToolBar(btnFirst);
+		toolBar.setStyle("-fx-background-color: #336699;");
 		setTop(toolBar);
 
 		// bottom
 
 		final HBox hBox = new HBox();
-		hBox.setPrefHeight(30);
+		//hBox.setPrefHeight(30);
 		setBottom(hBox);
 
 		// left
 
-		final TreeView treeView = new TreeView();
-		setLeft(treeView);
+
+		//setLeft(addAccordion());
+		setLeft(treeView());
 
 		// right
 
@@ -42,4 +44,33 @@ public class TestPane extends BorderPane {
 		setCenter(cGridPane);
 
 	}
+
+	private Accordion addAccordion() {
+		Accordion accordion = new Accordion();
+		ListView<String> listView = new ListView<>();
+		ObservableList<String> items = FXCollections.observableArrayList(
+				"Всё вместе", "Расходы", "Доходы", "Кредиты и долги");
+		listView.setItems(items);
+		listView.getSelectionModel().select(0);
+		TitledPane titledPane = new TitledPane("Основная", listView);
+
+		accordion.getPanes().add(titledPane);
+		accordion.setExpandedPane(titledPane);
+
+		return accordion;
+	}
+
+	private TreeView<String> treeView() {
+		TreeItem<String> rootItem = new TreeItem<>("Главная");
+		rootItem.setExpanded(true);
+
+		ObservableList<String> items = FXCollections.observableArrayList(
+				"Всё вместе", "Расходы", "Доходы", "Кредиты и долги");
+		for (String s : items) {
+			rootItem.getChildren().add(new TreeItem<String>(s));
+		}
+
+		return new TreeView<>(rootItem);
+	}
+
 }
