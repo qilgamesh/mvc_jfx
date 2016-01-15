@@ -32,7 +32,7 @@ public class TestPane extends BorderPane {
 		Pane middleOfTBox = new Pane();
 
 		final HBox toolBar = new HBox(btnFirst, middleOfTBox, currMonth);
-		toolBar.setHgrow(middleOfTBox, Priority.ALWAYS);
+		HBox.setHgrow(middleOfTBox, Priority.ALWAYS);
 
 		toolBar.setPadding(new Insets(5, 10, 5, 10));
 		toolBar.setStyle("-fx-background-color: #336699;");

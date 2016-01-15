@@ -42,7 +42,7 @@ public class ListModel<P> extends Model<Collection<Model<P>>> implements
 	public void remove(Model<P> model) {
 		if (model == null)
 			throw new NullPointerException("Пустой параметр");
-		model.unsubscribe(this);
+		model.unSubscribe(this);
 		getProperty().remove(model);
 		notifySubscribers();
 	}

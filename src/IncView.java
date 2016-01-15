@@ -1,5 +1,3 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -10,19 +8,21 @@ import javafx.scene.text.Font;
 /**
  * @author Andrey Semenyuk
  */
-public class IncView extends GridPane {
+public class IncView extends GridPane implements IView {
 
 	public IncView() {
 		setHgap(10);
 		setVgap(10);
 		setPadding(new Insets(0, 10, 0, 10));
 
+		add(addTitle("Доходы"), 1, 0);
+		add(addTableView(), 1, 1);
+
+	}
+
+	@Override
+	public TableView<Income> addTableView() {
 		TableView<Income> table = new TableView<>();
-
-		final Label label = new Label("Доходы");
-		label.setFont(new Font("Arial", 20));
-		add(label, 1, 0);
-
 		table.setEditable(true);
 
 		final TableColumn uidCol = new TableColumn<Income, Object>("День");
@@ -38,7 +38,15 @@ public class IncView extends GridPane {
 		table.getItems().add(new Income(0, "Начальный остаток", 1f));
 
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		add(table, 1, 1);
 
+		return table;
+	}
+
+	@Override
+	public Label addTitle(String title) {
+		Label label = new Label(title);
+		label.setFont(new Font("Arial", 20));
+
+		return label;
 	}
 }
