@@ -1,5 +1,7 @@
 package model;
 
+import view.BaseView;
+
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -93,5 +95,8 @@ public class Model<P> {
 	@Override
 	public String toString() {
 		return property.toString();
+	}
+
+	public <M extends Model<P>, P> void unsubscribe(BaseView<M, P> mpBaseView) {
 	}
 }
